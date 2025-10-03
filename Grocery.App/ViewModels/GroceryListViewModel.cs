@@ -12,11 +12,15 @@ namespace Grocery.App.ViewModels
         private readonly IGroceryListService _groceryListService;
         private readonly GlobalViewModel _global;
 
+        [ObservableProperty]
+        private Client? client;
+
         public GroceryListViewModel(IGroceryListService groceryListService, GlobalViewModel global)
         {
             Title = "Boodschappenlijst";
             _groceryListService = groceryListService;
             _global = global;
+            Client = _global.Client;
             GroceryLists = new(_groceryListService.GetAll());
         }
 
@@ -39,6 +43,7 @@ namespace Grocery.App.ViewModels
         public override void OnAppearing()
         {
             base.OnAppearing();
+            Client = _global.Client;
             GroceryLists = new(_groceryListService.GetAll());
         }
 
